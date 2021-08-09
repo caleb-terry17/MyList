@@ -1,17 +1,19 @@
 ///////////////////////////////////////////////////////////////////////////////
 // file: PageEntry.dart
 // author: Caleb Terry
-// last edit: 07/18/2021
+// last edit: 08/09/2021
 // description: controls all aspects for a single PageEntry given a ListEntry 
 //              object
 ///////////////////////////////////////////////////////////////////////////////
 
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:my_list_app/Archive.dart';
 import 'Settings.dart';
+import 'Archive.dart';
 
 // global variables
-PageEntry archivePage = new PageEntry("Archive");  // page to store all archived pages
+Archive archivePage = new Archive();  // page to store all archived pages
 
 class PageEntry extends StatefulWidget {
   /////////////////
@@ -33,12 +35,16 @@ class PageEntry extends StatefulWidget {
   }
 
   // public member functions
-
   @override
   _PageEntryState createState() => _PageEntryState();
+  bool hasEntry(PageEntry entry) { return _subPage.contains(entry); }
 
   // public accessor functions
   String getTitle() { return _info[0]; }
+  String getShortTitle() { 
+    // returns a shortened version of the title if necessary
+    return _info[0].length > 12 ? _info[0].substring(1, 12) + "..." : _info[0];
+  }
   String getDescription() { return _info[1]; }
   PageEntry getEntry(int index) { return _subPage[index]; }
   int getLength() { return _subPage.length; }
@@ -48,9 +54,6 @@ class PageEntry extends StatefulWidget {
   void setDescription(String description) { _info[1] = description; }
   void addEntry(PageEntry entry) { _subPage.add(entry); }
   void popEntry(PageEntry entry) { _subPage.remove(entry); }
-
-  // public member functions
-  bool hasEntry(PageEntry entry) { return _subPage.contains(entry); }
 }
 
 class _PageEntryState extends State<PageEntry> {
@@ -60,7 +63,6 @@ class _PageEntryState extends State<PageEntry> {
   
   // private data members
   final _biggerFont = const TextStyle(fontSize: 18.0);  // used to make the font size larger
-
 
   // private member functions
 
@@ -162,6 +164,7 @@ class _PageEntryState extends State<PageEntry> {
           ),
           subtitle: Text(entry.getDescription()),
           onTap: (() { _gotoPage(entry); }),
+          onLongPress: (() { _editEntry(entry); }),
         ),
       ),
       actions: <Widget>[
@@ -172,19 +175,13 @@ class _PageEntryState extends State<PageEntry> {
           onTap: () => _archive(entry),
         ),
         IconSlideAction(
-          caption: 'Edit',
+          caption: 'Share',
           color: Colors.indigo,
-          icon: Icons.edit,
-          onTap: () => _editEntry(entry),
+          icon: Icons.share,
+          onTap: () => _share(entry),
         ),
       ],
       secondaryActions: <Widget>[
-        IconSlideAction(
-          caption: 'More',
-          color: Colors.black45,
-          icon: Icons.more_horiz,
-          onTap: () => _more(entry),
-        ),
         IconSlideAction(
           caption: 'Delete',
           color: Colors.red,
@@ -220,6 +217,17 @@ class _PageEntryState extends State<PageEntry> {
     );
   }
 
+  // displays archive page
+  void _gotoArchive() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return archivePage;
+        },
+      ),
+    );
+  }
+
   // archives entry given
   void _archive(PageEntry entry) {
     // making sure that entry is not aleady in archive
@@ -237,7 +245,7 @@ class _PageEntryState extends State<PageEntry> {
         builder: (BuildContext context) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(entry.getTitle()),
+              title: Text(entry.getShortTitle()),
               actions: [
                 IconButton(
                   icon: Icon(Icons.check), 
@@ -305,16 +313,16 @@ class _PageEntryState extends State<PageEntry> {
         builder: (BuildContext context) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(entry.getTitle()),
+              title: Text(entry.getShortTitle()),
               backgroundColor: headingColor,
               actions: [],
             ),
             body: ListView(
               children: [
                 ListTile(
-                  title: Text("Share"),
+                  title: Text("Option 1"),
                   tileColor: Colors.blue,
-                  trailing: Icon(Icons.share),
+                  // trailing: Icon(Icons.share),
                   onTap: () {
                     _share(entry);
                   },
@@ -367,6 +375,11 @@ class _PageEntryState extends State<PageEntry> {
     );
   }
 
+  // saves page to json file
+  _savePage(PageEntry page) {
+
+  }
+
   /////////////////
   // public
   /////////////////
@@ -376,7 +389,7 @@ class _PageEntryState extends State<PageEntry> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.getTitle()),  // widget is a reference to the stateful widget
+        title: Text(widget.getShortTitle()),  // widget is a reference to the stateful widget
         backgroundColor: headingColor,
         actions: [
           // IconButton(
@@ -385,8 +398,8 @@ class _PageEntryState extends State<PageEntry> {
           // ),
           IconButton(
             icon: Icon(Icons.archive), 
-            onPressed: () { _gotoPage(archivePage); }  // NOTE: need to make archive menu specific to archive
-          ), 
+            onPressed: () { _gotoArchive(); }
+          ),
           IconButton(
             icon: Icon(Icons.add), 
             onPressed: () { _addEntry(widget); } 

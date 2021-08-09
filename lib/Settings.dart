@@ -1,12 +1,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 // file: Settings.dart
 // author: Caleb Terry
-// last edit: 07/18/2021
+// last edit: 08/09/2021
 // description: controls settings menu for page entry
 ///////////////////////////////////////////////////////////////////////////////
 
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 // global variables
 Color headingColor = Colors.white;
