@@ -12,6 +12,122 @@ import 'Settings.dart';
 
 // global variables
 PageEntry archivePage = new PageEntry("Archive");  // page to store all archived pages
+///////////////////
+// global actions
+///////////////////
+// actions for regular page
+List<IconButton> headerRegularPage() {
+  return <IconButton>[
+    // IconButton(
+    //   icon: Icon(Icons.settings),
+    //   onPressed: () { _gotoSettings(); }
+    // ),
+    IconButton(
+      icon: Icon(Icons.archive), 
+      onPressed: () { _gotoPage(archivePage); }
+    ),
+    IconButton(
+      icon: Icon(Icons.add), 
+      onPressed: () { _addEntry(widget); } 
+    ),
+  ];
+}
+
+// actions for archive page
+List<IconButton> headerArchivePage() {
+  return <IconButton>[];
+}
+
+///////////////////
+// global row tiles
+///////////////////
+// row tile for regular page
+Slidable rowRegularPage() {
+  return Slidable(
+    actionPane: SlidableDrawerActionPane(),
+    actionExtentRatio: 0.25,
+    child: Container(
+      // color: Colors.white,
+      child: ListTile(
+        // leading: CircleAvatar(
+        //   backgroundColor: Colors.indigoAccent,
+        //   // child: Text('$3'),
+        //   foregroundColor: Colors.white,
+        // ),
+        title: Text(
+          entry.getTitle(),
+          style: _biggerFont,
+        ),
+        subtitle: Text(entry.getDescription()),
+        onTap: (() { _gotoPage(entry); }),
+        onLongPress: (() { _editEntry(entry); }),
+      ),
+    ),
+    actions: <Widget>[
+      IconSlideAction(
+        caption: 'Archive',
+        color: Colors.blue,
+        icon: Icons.archive,
+        onTap: () => _archive(entry),
+      ),
+      IconSlideAction(
+        caption: 'Share',
+        color: Colors.indigo,
+        icon: Icons.share,
+        onTap: () => _share(entry),
+      ),
+    ],
+    secondaryActions: <Widget>[
+      IconSlideAction(
+        caption: 'Delete',
+        color: Colors.red,
+        icon: Icons.delete,
+        onTap: () => _delete(page, entry),
+      ),
+    ],
+  );
+}
+
+// row tile for archive page
+Slidable rowArchivePage() {
+  return Slidable(
+    actionPane: SlidableDrawerActionPane(),
+    actionExtentRatio: 0.25,
+    child: Container(
+      // color: Colors.white,
+      child: ListTile(
+        // leading: CircleAvatar(
+        //   backgroundColor: Colors.indigoAccent,
+        //   // child: Text('$3'),
+        //   foregroundColor: Colors.white,
+        // ),
+        title: Text(
+          entry.getTitle(),
+          style: _biggerFont,
+        ),
+        subtitle: Text(entry.getDescription()),
+        onTap: (() { _gotoArchive(entry); }),
+        onLongPress: (() { _editEntry(entry); }),
+      ),
+    ),
+    actions: <Widget>[
+      IconSlideAction(
+        caption: 'Share',
+        color: Colors.indigo,
+        icon: Icons.share,
+        onTap: () => _share(entry),
+      ),
+    ],
+    secondaryActions: <Widget>[
+      IconSlideAction(
+        caption: 'Remove',
+        color: Colors.red,
+        icon: Icons.delete,
+        onTap: () => _delete(page, entry),
+      ),
+    ],
+  );
+}
 
 class PageEntry extends StatefulWidget {
   /////////////////
@@ -145,49 +261,7 @@ class _PageEntryState extends State<PageEntry> {
 
   // lays out each individual row for PageEntry
   Widget _buildRow(PageEntry page, PageEntry entry) {
-    return Slidable(
-      actionPane: SlidableDrawerActionPane(),
-      actionExtentRatio: 0.25,
-      child: Container(
-        // color: Colors.white,
-        child: ListTile(
-          // leading: CircleAvatar(
-          //   backgroundColor: Colors.indigoAccent,
-          //   // child: Text('$3'),
-          //   foregroundColor: Colors.white,
-          // ),
-          title: Text(
-            entry.getTitle(),
-            style: _biggerFont,
-          ),
-          subtitle: Text(entry.getDescription()),
-          onTap: (() { _gotoPage(entry); }),
-          onLongPress: (() { _editEntry(entry); }),
-        ),
-      ),
-      actions: <Widget>[
-        IconSlideAction(
-          caption: 'Archive',
-          color: Colors.blue,
-          icon: Icons.archive,
-          onTap: () => _archive(entry),
-        ),
-        IconSlideAction(
-          caption: 'Share',
-          color: Colors.indigo,
-          icon: Icons.share,
-          onTap: () => _share(entry),
-        ),
-      ],
-      secondaryActions: <Widget>[
-        IconSlideAction(
-          caption: 'Delete',
-          color: Colors.red,
-          icon: Icons.delete,
-          onTap: () => _delete(page, entry),
-        ),
-      ],
-    );
+    return 
   }
 
   // function will take you to page input
@@ -212,71 +286,6 @@ class _PageEntryState extends State<PageEntry> {
         // the body of the new route consists of a ListView containing the ListTiles rows, each row is separated by a divider
         builder: (BuildContext context) { return Settings(); },
       ),
-    );
-  }
-
-  // displays archive page
-  void _gotoArchive(PageEntry page) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (BuildContext context) {
-          return _buildArchivePage(page);
-        },
-      ),
-    );
-  }
-
-  // builds page for archive
-  Widget _buildArchivePage(PageEntry page) {
-    return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemCount: page.getLength(),
-      itemBuilder: (context, i) {
-        // int index = i ~/ 2;
-        // if (i.isOdd) return const Divider();  // divider for each row
-        return _buildArchiveRow(page, page.getEntry(i));
-      },
-    );
-  }
-
-  // builds row for archive
-  Widget _buildArchiveRow(PageEntry page, PageEntry entry) {
-    return Slidable(
-      actionPane: SlidableDrawerActionPane(),
-      actionExtentRatio: 0.25,
-      child: Container(
-        // color: Colors.white,
-        child: ListTile(
-          // leading: CircleAvatar(
-          //   backgroundColor: Colors.indigoAccent,
-          //   // child: Text('$3'),
-          //   foregroundColor: Colors.white,
-          // ),
-          title: Text(
-            entry.getTitle(),
-            style: _biggerFont,
-          ),
-          subtitle: Text(entry.getDescription()),
-          onTap: (() { _gotoArchive(entry); }),
-          onLongPress: (() { _editEntry(entry); }),
-        ),
-      ),
-      actions: <Widget>[
-        IconSlideAction(
-          caption: 'Share',
-          color: Colors.indigo,
-          icon: Icons.share,
-          onTap: () => _share(entry),
-        ),
-      ],
-      secondaryActions: <Widget>[
-        IconSlideAction(
-          caption: 'Remove',
-          color: Colors.red,
-          icon: Icons.delete,
-          onTap: () => _delete(page, entry),
-        ),
-      ],
     );
   }
 
@@ -444,18 +453,7 @@ class _PageEntryState extends State<PageEntry> {
         title: Text(widget.getShortTitle()),  // widget is a reference to the stateful widget
         backgroundColor: headingColor,
         actions: [
-          // IconButton(
-          //   icon: Icon(Icons.settings),
-          //   onPressed: () { _gotoSettings(); }
-          // ),
-          IconButton(
-            icon: Icon(Icons.archive), 
-            onPressed: () { _gotoArchive(archivePage); }
-          ),
-          IconButton(
-            icon: Icon(Icons.add), 
-            onPressed: () { _addEntry(widget); } 
-          ),
+          
         ],
       ),
       body: _buildPage(widget),
