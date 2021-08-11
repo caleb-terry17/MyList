@@ -4,7 +4,6 @@
 // last edit: 08/09/2021
 // description: controls settings menu for page entry
 ///////////////////////////////////////////////////////////////////////////////
-
 import 'package:flutter/material.dart';
 
 // global variables

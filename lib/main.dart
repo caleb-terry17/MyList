@@ -4,7 +4,6 @@
 // last edit: 07/18/2021
 // description: runs the My List app
 ///////////////////////////////////////////////////////////////////////////////
-
 import 'package:flutter/material.dart';
 import 'PageEntry.dart';
 
