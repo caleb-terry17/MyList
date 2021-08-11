@@ -9,9 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'Settings.dart';
 
-// global variables
-PageEntry archivePage = new PageEntry("Archive");  // page to store all archived pages
-
 class PageEntry extends StatefulWidget {
   /////////////////
   // private
@@ -166,12 +163,6 @@ class _PageEntryState extends State<PageEntry> {
       ),
       actions: <Widget>[
         IconSlideAction(
-          caption: 'Archive',
-          color: Colors.blue,
-          icon: Icons.archive,
-          onTap: () => _archive(entry),
-        ),
-        IconSlideAction(
           caption: 'Share',
           color: Colors.indigo,
           icon: Icons.share,
@@ -212,12 +203,6 @@ class _PageEntryState extends State<PageEntry> {
         builder: (BuildContext context) { return Settings(); },
       ),
     );
-  }
-
-  // archives entry given
-  void _archive(PageEntry entry) {
-    // making sure that entry is not aleady in archive
-    if (!archivePage.hasEntry(entry)) { archivePage.addEntry(entry); }
   }
 
   // edits the given entry
@@ -330,9 +315,6 @@ class _PageEntryState extends State<PageEntry> {
   void _delete(PageEntry page, PageEntry entry) {  
     setState(() { 
       page.popEntry(entry); 
-      // if in archive, pop as well
-      // NOTE: need to also iterate through entry to see if any of its children are in archive
-      if (archivePage.hasEntry(entry)) { archivePage.popEntry(entry); }
     });
   }
 
@@ -381,10 +363,6 @@ class _PageEntryState extends State<PageEntry> {
           //   icon: Icon(Icons.settings),
           //   onPressed: () { _gotoSettings(); }
           // ),
-          IconButton(
-            icon: Icon(Icons.archive), 
-            onPressed: () { _gotoPage(archivePage); }
-          ),
           IconButton(
             icon: Icon(Icons.add), 
             onPressed: () { _addEntry(widget); } 
