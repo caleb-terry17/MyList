@@ -1,12 +1,13 @@
 ///////////////////////////////////////////////////////////////////////////////
 // file: PageEntry.dart
 // author: Caleb Terry
-// last edit: 08/09/2021
+// last edit: 08/11/2021
 // description: controls all aspects for a single PageEntry given a ListEntry 
 //              object
 ///////////////////////////////////////////////////////////////////////////////
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'Alert.dart';
 import 'Settings.dart';
 
 class PageEntry extends StatefulWidget {
@@ -61,7 +62,7 @@ class _PageEntryState extends State<PageEntry> {
   // private member functions
 
   // private member functions
-  // creates a new entry in the page input
+  // adds entry to the current page
   void _addEntry(PageEntry page) {
     String _newTitle = "";
     String _newDescription = "";
@@ -78,7 +79,15 @@ class _PageEntryState extends State<PageEntry> {
                     // adding new entry to page
                     setState(() {  // updates the page to include the newly added entry
                       // checking if there is input
-                      if (_newTitle == "") { _showAlert("No title entered"); }
+                      if (_newTitle == "") { 
+                        Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) {
+                              return Alert("No title entered"); 
+                            },
+                          ),
+                        );
+                      }
                       else { 
                         page.addEntry(PageEntry(_newTitle, description: _newDescription)); 
                         Navigator.of(context).pop();  // added entry, going back to page
@@ -132,8 +141,6 @@ class _PageEntryState extends State<PageEntry> {
       padding: const EdgeInsets.all(16.0),
       itemCount: page.getLength(),
       itemBuilder: (context, i) {
-        // int index = i ~/ 2;
-        // if (i.isOdd) return const Divider();  // divider for each row
         return _buildRow(page, page.getEntry(i));
       },
     );
@@ -316,31 +323,6 @@ class _PageEntryState extends State<PageEntry> {
     setState(() { 
       page.popEntry(entry); 
     });
-  }
-
-  // shows alert input to user
-  void _showAlert(String alert) {
-    Navigator.of(context).push(  // pushes the route to the Navigator's stack
-      MaterialPageRoute<void>(
-        // builder property returns a scaffold containing the app bar for the new route (new page)
-        // the body of the new route consists of a ListView containing the ListTiles rows, each row is separated by a divider
-        builder: (BuildContext context) {
-          return Container(
-            color: Colors.white,
-            child: AlertDialog(
-              title: Text(alert),
-              backgroundColor: Colors.white,
-              actions: [
-                TextButton(
-                  child: Text("Ok"),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
   }
 
   // saves page to json file
