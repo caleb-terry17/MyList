@@ -7,6 +7,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:share_plus/share_plus.dart';
 import 'Alert.dart';
 import 'Settings.dart';
 
@@ -314,8 +315,8 @@ class _PageEntryState extends State<PageEntry> {
   }
 
   // share entry
-  void _share(PageEntry entry) {
-
+  void _share(PageEntry entry) async {
+    await Share.share('check out my website https://example.com');
   }
 
   // deletes the entry from the page

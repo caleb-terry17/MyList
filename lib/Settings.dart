@@ -53,7 +53,7 @@ class _SettingsState extends State<Settings> {
   // private member functions
 
   // creates a menu of colors to select from
-  Color _chooseColor() {
+  Future<Color> _chooseColor() {
     Color choice = Colors.white;
     Navigator.of(context).push(  // pushes the route to the Navigator's stack
       MaterialPageRoute<void>(
@@ -88,7 +88,7 @@ class _SettingsState extends State<Settings> {
         },
       ),
     );
-    return choice;
+    return Future.value(choice);
   }
 
   // finds color based on number input
@@ -125,9 +125,9 @@ class _SettingsState extends State<Settings> {
             title: Center(
               child: Text("Heading Colors"),
             ),
-            onTap: () {
-              setState(() { 
-                headingColor = _chooseColor();
+            onTap: () async {
+              setState(() async { 
+                headingColor = await _chooseColor();
               });
             },
           ),
