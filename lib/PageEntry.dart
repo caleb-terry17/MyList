@@ -1,13 +1,15 @@
 ///////////////////////////////////////////////////////////////////////////////
 // file: PageEntry.dart
 // author: Caleb Terry
-// last edit: 08/11/2021
+// last edit: 08/12/2021
 // description: controls all aspects for a single PageEntry given a ListEntry 
 //              object
 ///////////////////////////////////////////////////////////////////////////////
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 import 'Alert.dart';
 import 'Settings.dart';
 
@@ -50,6 +52,34 @@ class PageEntry extends StatefulWidget {
   void setDescription(String description) { _info[1] = description; }
   void addEntry(PageEntry entry) { _subPage.add(entry); }
   void popEntry(PageEntry entry) { _subPage.remove(entry); }
+
+  // for testing
+  void write() {
+    // setting filename
+    String fileName = this.getTitle() + '.json';
+    // creating file
+    IOSink file = File(fileName).openWrite();
+    // writing to file
+    _writeFile(file, this);
+    // sharing file
+  }
+
+  // recursive function to write to json file
+  void _writeFile(IOSink file, PageEntry page) {
+    file.write('{\n');  // opening bracket
+    file.write('"title":"' + page.getTitle() + '",\n');  // title
+    file.write('"description":"' + page.getDescription() + '",\n');  // description
+    // writing subcontents if has sub pages
+    if (page.getLength() > 0) {
+      // setting up for subpage
+      file.write('"entries":[\n');  // opening brace
+      for (int i = 0; i < page.getLength(); ++i) {
+        _writeFile(file, page.getEntry(i));
+      }
+      file.write(']');
+    }
+    file.write('}');  // closing bracket
+  }
 }
 
 class _PageEntryState extends State<PageEntry> {
@@ -315,8 +345,27 @@ class _PageEntryState extends State<PageEntry> {
   }
 
   // share entry
-  void _share(PageEntry entry) async {
-    await Share.share('check out my website https://example.com');
+  void _share(PageEntry page) async {
+    // getting path for file
+    String dirPath = (await getApplicationDocumentsDirectory()).path;
+    // setting filename
+    String fileName = page.getTitle() + '.json';
+    // getting path for file
+    String filePath = dirPath + '_' + fileName;
+    // creating file
+    IOSink file = new File(filePath).openWrite();
+    // writing to file
+    _writeFile(file, page);
+    // closing file
+    file.close();
+    // sharing file
+    await Share.shareFiles(
+      [
+        filePath
+      ], 
+      subject: 'Sharing ' + fileName, 
+      text: 'Sharing ' + page.getTitle() + ' page from MyList',
+    );
   }
 
   // deletes the entry from the page
@@ -326,9 +375,21 @@ class _PageEntryState extends State<PageEntry> {
     });
   }
 
-  // saves page to json file
-  _savePage(PageEntry page) {
-
+  // recursive function to write to json file
+  void _writeFile(IOSink file, PageEntry page) {
+    file.write('{\n');  // opening bracket
+    file.write('"title":"' + page.getTitle() + '",\n');  // title
+    file.write('"description":"' + page.getDescription() + '",\n');  // description
+    // writing subcontents if has sub pages
+    if (page.getLength() > 0) {
+      // setting up for subpage
+      file.write('"entries":[\n');  // opening brace
+      for (int i = 0; i < page.getLength(); ++i) {
+        _writeFile(file, page.getEntry(i));
+      }
+      file.write(']');
+    }
+    file.write('}');  // closing bracket
   }
 
   /////////////////
