@@ -53,32 +53,25 @@ class PageEntry extends StatefulWidget {
   void addEntry(PageEntry entry) { _subPage.add(entry); }
   void popEntry(PageEntry entry) { _subPage.remove(entry); }
 
-  // for testing
-  void write() {
-    // setting filename
-    String fileName = this.getTitle() + '.json';
-    // creating file
-    IOSink file = File(fileName).openWrite();
-    // writing to file
-    _writeFile(file, this);
-    // sharing file
-  }
-
-  // recursive function to write to json file
-  void _writeFile(IOSink file, PageEntry page) {
-    file.write('{\n');  // opening bracket
-    file.write('"title":"' + page.getTitle() + '",\n');  // title
-    file.write('"description":"' + page.getDescription() + '",\n');  // description
+  // converts the current page to a string
+  String writeString(String str, int tabAmount) {
+    // creating string tab
+    String tab = "    " * tabAmount;
+    str += tab + '{\n';  // opening bracket
+    str += tab + '"title":"' + this.getTitle() + '",\n';  // title
+    str += tab + '"description":"' + this.getDescription() + '",\n';  // description
+    // setting up for subpage
+    str += tab + '"entries":[';  // opening brace
     // writing subcontents if has sub pages
-    if (page.getLength() > 0) {
-      // setting up for subpage
-      file.write('"entries":[\n');  // opening brace
-      for (int i = 0; i < page.getLength(); ++i) {
-        _writeFile(file, page.getEntry(i));
+    if (this.getLength() > 0) {
+      str += "\n";
+      for (int i = 0; i < this.getLength(); ++i) {
+        str = this.getEntry(i).writeString(str, tabAmount + 1);
       }
-      file.write(']');
     }
-    file.write('}');  // closing bracket
+    str += tab + ']\n';
+    str += tab + '}\n';  // closing bracket
+    return str;
   }
 }
 
@@ -359,13 +352,16 @@ class _PageEntryState extends State<PageEntry> {
     // closing file
     file.close();
     // sharing file
-    await Share.shareFiles(
-      [
-        filePath
-      ], 
-      subject: 'Sharing ' + fileName, 
-      text: 'Sharing ' + page.getTitle() + ' page from MyList',
-    );
+    // await Share.shareFiles(
+    //   [
+    //     filePath
+    //   ], 
+    //   subject: 'Sharing ' + fileName, 
+    //   text: 'Sharing ' + page.getTitle() + ' page from MyList',
+    // );
+
+    // attaching contents as text
+    Share.share(page.writeString("", 0));
   }
 
   // deletes the entry from the page
