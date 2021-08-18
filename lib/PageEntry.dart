@@ -112,7 +112,7 @@ class _PageEntryState extends State<PageEntry> {
 
   // private member functions
   // adds entry to the current page
-  void _addEntry(PageEntry page) {
+  void _addEntry() {
     String _newTitle = "";
     String _newDescription = "";
     Navigator.of(context).push(
@@ -138,7 +138,7 @@ class _PageEntryState extends State<PageEntry> {
                         );
                       }
                       else { 
-                        page.addEntry(PageEntry(_newTitle, description: _newDescription)); 
+                        widget.addEntry(PageEntry(_newTitle, description: _newDescription)); 
                         Navigator.of(context).pop();  // added entry, going back to page
                       }
                     });
@@ -185,18 +185,18 @@ class _PageEntryState extends State<PageEntry> {
   }
 
   // builds the current page
-  Widget _buildPage(PageEntry page) {
+  Widget _buildPage() {
     return ListView.builder(
       padding: const EdgeInsets.all(16.0),
-      itemCount: page.getLength(),
+      itemCount: widget.getLength(),
       itemBuilder: (context, i) {
-        return _buildRow(page, page.getEntry(i));
+        return _buildRow(widget.getEntry(i));
       },
     );
   }
 
   // lays out each individual row for PageEntry
-  Widget _buildRow(PageEntry page, PageEntry entry) {
+  Widget _buildRow(PageEntry entry) {
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.25,
@@ -230,7 +230,7 @@ class _PageEntryState extends State<PageEntry> {
           caption: 'Delete',
           color: Colors.red,
           icon: Icons.delete,
-          onTap: () => _delete(page, entry),
+          onTap: () => _delete(entry),
         ),
       ],
     );
@@ -356,9 +356,9 @@ class _PageEntryState extends State<PageEntry> {
   }
 
   // deletes the entry from the page
-  void _delete(PageEntry page, PageEntry entry) {  
+  void _delete(PageEntry entry) {  
     setState(() { 
-      page.popEntry(entry); 
+      widget.popEntry(entry); 
     });
   }
 
@@ -379,11 +379,11 @@ class _PageEntryState extends State<PageEntry> {
           // ),
           IconButton(
             icon: Icon(Icons.add), 
-            onPressed: () { _addEntry(widget); } 
+            onPressed: () { _addEntry(); } 
           ),
         ],
       ),
-      body: _buildPage(widget),
+      body: _buildPage(),
     );
   }
 }
