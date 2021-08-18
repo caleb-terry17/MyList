@@ -12,3 +12,7 @@
 
 ### Make an Entry a List
 ![Entry to List](/readMeImages/entryToList.jpg)
+
+### Edit an Entry
+![Edit an Entry](/readMeImages/editEntry.jpg)
+![Save Changes](/readMeImages/saveChanges.jpg)
