@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // file: Settings.dart
 // author: Caleb Terry
-// last edit: 08/09/2021
+// last edit: 08/18/2021
 // description: controls settings menu for page entry
 ///////////////////////////////////////////////////////////////////////////////
 import 'package:flutter/material.dart';
@@ -91,20 +91,20 @@ class _SettingsState extends State<Settings> {
     return Future.value(choice);
   }
 
-  // finds color based on number input
-  Color _findColor(int index) {
-    // if from color ary
-    if (index < colorAry.length * 10) {
-      if (index % 10 == 0) {}  // 50
-      else if (index % 10 == 5) {}  // 500/color itself
-      else {}
-    } else if (index < colorAry.length * 10 + blackAry.length) {  // black ary
+  // // finds color based on number input
+  // Color _findColor(int index) {
+  //   // if from color ary
+  //   if (index < colorAry.length * 10) {
+  //     if (index % 10 == 0) {}  // 50
+  //     else if (index % 10 == 5) {}  // 500/color itself
+  //     else {}
+  //   } else if (index < colorAry.length * 10 + blackAry.length) {  // black ary
 
-    } else {  // white ary
+  //   } else {  // white ary
 
-    }
-    return Colors.white;
-  }
+  //   }
+  //   return Colors.white;
+  // }
   
   /////////////////
   // public
