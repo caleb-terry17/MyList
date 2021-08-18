@@ -14,8 +14,10 @@
     <a href="#deleteEntry">Deleting an Entry</a><br>
 </p>
 
-<a name="addEntry"></a>
 ## App Details
+
+<a name="addEntry"></a>
+### Adding and Entry
 ![Adding an Entry](/readMeImages/addEntry.jpg)
 ![Entering List Information](/readMeImages/enterTitleDescription.jpg)
 ![Then Save It](/readMeImages/saveEntry.jpg)
