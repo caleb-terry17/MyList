@@ -1,11 +1,14 @@
 # MyList App
 
 <p>App which allows users to create, edit and share lists.<br>
-[Video Description](https://www.youtube.com)</p>
+<a href="https://www.youtube.com">Video Description</a></p>
 
 ## Features
 
-### Adding an entry
-![Adding a List Entry](/readMeImages/addEntry.jpg)
+### Adding an Entry
+![Adding an Entry](/readMeImages/addEntry.jpg)
 ![Entering List Information](/readMeImages/enterTitleDescription.jpg)
 ![Then Save It](/readMeImages/saveEntry.jpg)
+
+### Make an Entry a List
+![Entry to List](/readMeImages/entryToList.jpg)
