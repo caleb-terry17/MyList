@@ -351,7 +351,7 @@ class _PageEntryState extends State<PageEntry> {
         filePath
       ], 
       subject: 'Sharing Page: ' + page.getTitle(), 
-      text: page.writeString("", 0),
+      text: page.writeString("", 0),  // temporary until i fix the problem of not attaching a file
     );
   }
 
