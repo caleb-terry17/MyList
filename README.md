@@ -1,14 +1,17 @@
 # MyList App
 
-<p>App which allows users to create, edit and share lists.<br>
-<a href="https://www.youtube.com">Video Description</a></p>
+<p> 
+    App which allows users to create, edit and share lists.<br>
+    <a href="https://www.youtube.com">Video Description</a>
+</p>
 
 ## App Features
-<a href="#addEntry">Adding an Entry</a>
-<a href="#entryToList">Make an Entry a List</a>
-<a href="#editEntry">Edit an Entry</a>
-<a href="#shareList">Sharing a List</a>
-<a href="#deleteEntry">Deleting an Entry</a>
+<p>
+    <a href="#addEntry">Adding an Entry</a><br>
+    <a href="#entryToList">Make an Entry a List</a><br>
+    <a href="#editEntry">Edit an Entry</a><br>
+    <a href="#shareList">Sharing a List</a><br>
+    <a href="#deleteEntry">Deleting an Entry</a><br>
 
 <a name="addEntry"></a>
 ## App Details
