@@ -19,7 +19,6 @@
 
 ### Sharing a List
 ![share List](/readMeImages/shareList.jpg)
-![share Options]()
 
 ### Deleting an Entry
-![Delete Entry]()
+![Delete Entry](/readMeImages/deleteEntry.jpg)
