@@ -12,6 +12,7 @@
     <a href="#editEntry">Edit an Entry</a><br>
     <a href="#shareList">Sharing a List</a><br>
     <a href="#deleteEntry">Deleting an Entry</a><br>
+</p>
 
 <a name="addEntry"></a>
 ## App Details
