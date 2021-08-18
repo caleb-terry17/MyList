@@ -4,13 +4,9 @@
 <a href="https://www.youtube.com">Video Description</a></p>
 
 ## Features
-[Adding an Entry](#Adding an Entry)
-[Make an Entry a List](#Make an Entry a List)
-[Edit an Entry](#Edit an Entry)
-[Sharing a List](#Sharing a List)
-[Deleting an Entry](#Deleting an Entry)
+<a href="#addEntry">Adding an Entry</a>
 
-### Adding an Entry
+<a name = "addEntry">Adding an Entry</a>
 ![Adding an Entry](/readMeImages/addEntry.jpg)
 ![Entering List Information](/readMeImages/enterTitleDescription.jpg)
 ![Then Save It](/readMeImages/saveEntry.jpg)
