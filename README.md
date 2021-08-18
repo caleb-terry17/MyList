@@ -2,7 +2,6 @@
 
 <p> 
     App which allows users to create, edit, share, and delete lists.<br>
-    <a href="https://www.youtube.com">Video Description</a>
 </p>
 
 <a name="appFeatures"></a>
