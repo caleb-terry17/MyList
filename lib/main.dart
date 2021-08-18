@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,  // removes "debug" banner in top right
       title: 'My List',
       theme: ThemeData(
         primaryColor: Colors.white,
