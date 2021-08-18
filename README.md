@@ -1,7 +1,7 @@
 # MyList App
 
 <p> 
-    App which allows users to create, edit and share lists.<br>
+    App which allows users to create, edit, share, and delete lists.<br>
     <a href="https://www.youtube.com">Video Description</a>
 </p>
 
