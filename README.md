@@ -5,6 +5,7 @@
     <a href="https://www.youtube.com">Video Description</a>
 </p>
 
+<a name="appFeatures"></a>
 ## App Features
 <p>
     <a href="#addEntry">Adding an Entry</a><br>
@@ -17,24 +18,29 @@
 ## App Details
 
 <a name="addEntry"></a>
+<a href="appFeatures"></a>
 ### Adding and Entry
 ![Adding an Entry](/readMeImages/addEntry.jpg)
 ![Entering List Information](/readMeImages/enterTitleDescription.jpg)
 ![Then Save It](/readMeImages/saveEntry.jpg)
 
 <a name="entryToList"></a>
+<a href="appFeatures"></a>
 ### Make an Entry a List
 ![Entry to List](/readMeImages/entryToList.jpg)
 
 <a name="editEntry"></a>
+<a href="appFeatures"></a>
 ### Edit an Entry
 ![Edit an Entry](/readMeImages/editEntry.jpg)
 ![Save Changes](/readMeImages/saveChanges.jpg)
 
 <a name="shareList"></a>
+<a href="appFeatures"></a>
 ### Sharing a List
 ![share List](/readMeImages/shareList.jpg)
 
 <a name="deleteEntry"></a>
+<a href="appFeatures"></a>
 ### Deleting an Entry
 ![Delete Entry](/readMeImages/deleteEntry.jpg)
