@@ -7,7 +7,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:share_plus/share_plus.dart'; 
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'Alert.dart';
@@ -56,7 +56,7 @@ class PageEntry extends StatefulWidget {
   // converts the current page to a string
   String writeString(String str, int tabAmount) {
     // creating string tab
-    String tab = "    " * tabAmount;
+    String tab = '    ' * tabAmount;
     str += tab + '{\n';  // opening bracket
     str += tab + '"title":"' + this.getTitle() + '",\n';  // title
     str += tab + '"description":"' + this.getDescription() + '",\n';  // description
@@ -64,14 +64,39 @@ class PageEntry extends StatefulWidget {
     str += tab + '"entries":[';  // opening brace
     // writing subcontents if has sub pages
     if (this.getLength() > 0) {
-      str += "\n";
+      str += '\n';
       for (int i = 0; i < this.getLength(); ++i) {
         str = this.getEntry(i).writeString(str, tabAmount + 1);
       }
+      // adding tab before closing brace if their are entries
+      str += tab;
     }
-    str += tab + ']\n';
+    
+    str += ']\n';
     str += tab + '}\n';  // closing bracket
     return str;
+  }
+
+  // writes the current page into a file
+  void writeFile(IOSink file, int tabAmount) {
+    // creating string tab
+    String tab = '    ' * tabAmount;
+    file.write(tab + '{\n');  // opening bracket
+    file.write(tab + '"title":"' + this.getTitle() + '",\n');  // title
+    file.write(tab + '"description":"' + this.getDescription() + '",\n');  // description
+    // setting up for subpage
+    file.write(tab + '"entries":[');  // opening brace
+    // writing subcontents if has sub pages
+    if (this.getLength() > 0) {
+      file.write('\n');
+      for (int i = 0; i < this.getLength(); ++i) {
+        this.getEntry(i).writeFile(file, tabAmount + 1);
+      }
+      // adding tab before closing brace if their are entries
+      file.write(tab);
+    }
+    file.write(']\n');
+    file.write(tab + '}\n');  // closing bracket
   }
 }
 
@@ -306,37 +331,6 @@ class _PageEntryState extends State<PageEntry> {
     );
   }
 
-  // goes to page with more options for list
-  void _more(PageEntry entry) {
-    Navigator.of(context).push(  // pushes the route to the Navigator's stack
-      MaterialPageRoute<void>(
-        // builder property returns a scaffold containing the app bar for the new route (new page)
-        // the body of the new route consists of a ListView containing the ListTiles rows, each row is separated by a divider
-        builder: (BuildContext context) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(entry.getShortTitle()),
-              backgroundColor: headingColor,
-              actions: [],
-            ),
-            body: ListView(
-              children: [
-                ListTile(
-                  title: Text("Option 1"),
-                  tileColor: Colors.blue,
-                  // trailing: Icon(Icons.share),
-                  onTap: () {
-                    _share(entry);
-                  },
-                ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
-
   // share entry
   void _share(PageEntry page) async {
     // getting path for file
@@ -348,20 +342,17 @@ class _PageEntryState extends State<PageEntry> {
     // creating file
     IOSink file = new File(filePath).openWrite();
     // writing to file
-    _writeFile(file, page);
+    widget.writeFile(file, 0);
     // closing file
     file.close();
     // sharing file
-    // await Share.shareFiles(
-    //   [
-    //     filePath
-    //   ], 
-    //   subject: 'Sharing ' + fileName, 
-    //   text: 'Sharing ' + page.getTitle() + ' page from MyList',
-    // );
-
-    // attaching contents as text
-    Share.share(page.writeString("", 0));
+    await Share.shareFiles(
+      [
+        filePath
+      ], 
+      subject: 'Sharing Page: ' + page.getTitle(), 
+      text: page.writeString("", 0),
+    );
   }
 
   // deletes the entry from the page
@@ -369,23 +360,6 @@ class _PageEntryState extends State<PageEntry> {
     setState(() { 
       page.popEntry(entry); 
     });
-  }
-
-  // recursive function to write to json file
-  void _writeFile(IOSink file, PageEntry page) {
-    file.write('{\n');  // opening bracket
-    file.write('"title":"' + page.getTitle() + '",\n');  // title
-    file.write('"description":"' + page.getDescription() + '",\n');  // description
-    // writing subcontents if has sub pages
-    if (page.getLength() > 0) {
-      // setting up for subpage
-      file.write('"entries":[\n');  // opening brace
-      for (int i = 0; i < page.getLength(); ++i) {
-        _writeFile(file, page.getEntry(i));
-      }
-      file.write(']');
-    }
-    file.write('}');  // closing bracket
   }
 
   /////////////////
