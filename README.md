@@ -16,31 +16,30 @@
 </p>
 
 ## App Details
-
-<a name="addEntry"></a>
-<a href="appFeatures"></a>
+<a name="addEntry"></a><br>
+<a href="appFeatures">App Features</a>
 ### Adding and Entry
 ![Adding an Entry](/readMeImages/addEntry.jpg)
 ![Entering List Information](/readMeImages/enterTitleDescription.jpg)
 ![Then Save It](/readMeImages/saveEntry.jpg)
 
-<a name="entryToList"></a>
-<a href="appFeatures"></a>
+<a name="entryToList"></a><br>
+<a href="appFeatures">App Features</a>
 ### Make an Entry a List
 ![Entry to List](/readMeImages/entryToList.jpg)
 
-<a name="editEntry"></a>
-<a href="appFeatures"></a>
+<a name="editEntry"></a><br>
+<a href="appFeatures">App Features</a>
 ### Edit an Entry
 ![Edit an Entry](/readMeImages/editEntry.jpg)
 ![Save Changes](/readMeImages/saveChanges.jpg)
 
-<a name="shareList"></a>
-<a href="appFeatures"></a>
+<a name="shareList"></a><br>
+<a href="appFeatures">App Features</a>
 ### Sharing a List
 ![share List](/readMeImages/shareList.jpg)
 
-<a name="deleteEntry"></a>
-<a href="appFeatures"></a>
+<a name="deleteEntry"></a><br>
+<a href="appFeatures">App Features</a>
 ### Deleting an Entry
 ![Delete Entry](/readMeImages/deleteEntry.jpg)
