@@ -91,20 +91,20 @@ class _SettingsState extends State<Settings> {
     return Future.value(choice);
   }
 
-  // finds color based on number input
-  Color _findColor(int index) {
-    // if from color ary
-    if (index < colorAry.length * 10) {
-      if (index % 10 == 0) {}  // 50
-      else if (index % 10 == 5) {}  // 500/color itself
-      else {}
-    } else if (index < colorAry.length * 10 + blackAry.length) {  // black ary
+  // // finds color based on number input
+  // Color _findColor(int index) {
+  //   // if from color ary
+  //   if (index < colorAry.length * 10) {
+  //     if (index % 10 == 0) {}  // 50
+  //     else if (index % 10 == 5) {}  // 500/color itself
+  //     else {}
+  //   } else if (index < colorAry.length * 10 + blackAry.length) {  // black ary
 
-    } else {  // white ary
+  //   } else {  // white ary
 
-    }
-    return Colors.white;
-  }
+  //   }
+  //   return Colors.white;
+  // }
   
   /////////////////
   // public
