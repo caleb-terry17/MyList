@@ -16,3 +16,10 @@
 ### Edit an Entry
 ![Edit an Entry](/readMeImages/editEntry.jpg)
 ![Save Changes](/readMeImages/saveChanges.jpg)
+
+### Sharing a List
+![share List](/readMeImages/shareList.jpg)
+![share Options]()
+
+### Deleting an Entry
+![Delete Entry]()
