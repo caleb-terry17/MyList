@@ -16,7 +16,7 @@
 </p>
 
 ## App Details
-<a name="addEntry"></a><br>
+<a name="addEntry"></a>
 <a href="appFeatures">App Features</a>
 ### Adding and Entry
 ![Adding an Entry](/readMeImages/addEntry.jpg)
