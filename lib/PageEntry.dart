@@ -41,7 +41,7 @@ class PageEntry extends StatefulWidget {
   String getTitle() { return _info[0]; }
   String getShortTitle() { 
     // returns a shortened version of the title if necessary
-    return _info[0].length > 12 ? _info[0].substring(1, 12) + "..." : _info[0];
+    return _info[0].length > 15 ? _info[0].substring(0, 15) + "..." : _info[0];
   }
   String getDescription() { return _info[1]; }
   PageEntry getEntry(int index) { return _subPage[index]; }
