@@ -11,7 +11,9 @@ import 'package:share_plus/share_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'Alert.dart';
-import 'Settings.dart';
+
+// global variables
+Color headingColor = Colors.white;
 
 class PageEntry extends StatefulWidget {
   /////////////////
@@ -250,17 +252,6 @@ class _PageEntryState extends State<PageEntry> {
     // NOTE: there is automatically a back arrow in the Add List menu, did not have to explicitly implement Navigator.pop
   }
 
-  // displays settings page
-  void _gotoSettings() {
-    Navigator.of(context).push(  // pushes the route to the Navigator's stack
-      MaterialPageRoute<void>(
-        // builder property returns a scaffold containing the app bar for the new route (new page)
-        // the body of the new route consists of a ListView containing the ListTiles rows, each row is separated by a divider
-        builder: (BuildContext context) { return Settings(); },
-      ),
-    );
-  }
-
   // edits the given entry
   void _editEntry(PageEntry entry) {
     String _newTitle = entry.getTitle();
@@ -373,10 +364,6 @@ class _PageEntryState extends State<PageEntry> {
         title: Text(widget.getShortTitle()),  // widget is a reference to the stateful widget
         backgroundColor: headingColor,
         actions: [
-          // IconButton(
-          //   icon: Icon(Icons.settings),
-          //   onPressed: () { _gotoSettings(); }
-          // ),
           IconButton(
             icon: Icon(Icons.add), 
             onPressed: () { _addEntry(); } 
