@@ -1,7 +1,7 @@
 # MyList App
 
 <p> 
-    App which allows users to create, edit, share, and delete lists.<br>
+    App built using Flutter/Dart framework which allows users to create, edit, share, and delete lists.<br>
 </p>
 
 <a name="appFeatures"></a>
